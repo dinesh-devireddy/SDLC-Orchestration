@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agentic-sdlc-orchestrator"
+version = "0.1.0"
+description = "A small, explicit requirement-to-plan LangGraph workflow"
+requires-python = ">=3.11"
+dependencies = [
+    "langgraph>=1.0,<2",
+    "langgraph-checkpoint-sqlite>=3,<5",
+    "langchain-openai>=1.0,<2",
+    "pydantic>=2.7,<3",
+    "python-dotenv>=1.0,<2",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8,<10"]
+ui = ["streamlit>=1.44,<2"]
+
+[project.scripts]
+engineering-plan = "agent_orchestrator.cli:main"
+sdlc = "agent_orchestrator.lifecycle.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
