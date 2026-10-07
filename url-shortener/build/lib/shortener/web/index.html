@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shortly · URL shortener</title>
+  <link rel="stylesheet" href="/api/ui/app.css">
+  <script src="/api/ui/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="Shortly home"><span class="brand-icon" aria-hidden="true">↗</span> shortly<span class="brand-dot">.</span></a>
+    <nav aria-label="Main navigation"><span class="local-label">LOCAL WORKSPACE</span><a href="/docs">API docs <span aria-hidden="true">↗</span></a></nav>
+  </header>
+  <main>
+    <section class="intro" aria-labelledby="page-title">
+      <p class="eyebrow"><span class="dot"></span> SMALL LINKS. SIMPLE SHARING.</p>
+      <h1 id="page-title">Long URL?<br>Make it <em>shortly.</em></h1>
+      <p class="intro-copy">Create a link that’s easy to share.<br>Add your own alias, set an expiry, and see the clicks.</p>
+    </section>
+    <div class="workspace">
+      <section class="card create-card" aria-labelledby="create-title">
+        <div class="card-heading"><span class="step">01</span><div><h2 id="create-title">Create a short link</h2><p>A smaller link to your next destination.</p></div></div>
+        <form id="create-form">
+          <label for="destination">Destination URL <span class="required">*</span></label>
+          <input id="destination" name="destination" type="url" placeholder="https://example.com/something-worth-sharing" required maxlength="2048" autocomplete="off" aria-describedby="destination-help">
+          <p class="hint" id="destination-help">An absolute http:// or https:// URL, without embedded credentials.</p>
+          <div class="field-row">
+            <div><label for="alias">Custom alias <span class="optional">Optional</span></label><input id="alias" name="alias" placeholder="my-next-big-idea" minlength="3" maxlength="32" pattern="[A-Za-z0-9_-]{3,32}" autocomplete="off" aria-describedby="alias-help"><p class="hint" id="alias-help">3–32 letters, numbers, dashes or underscores. Case-sensitive.</p></div>
+            <div><label for="expiration">Expires on <span class="optional">Optional</span></label><input id="expiration" name="expiration" type="datetime-local" step="1" aria-describedby="expiration-help"><p class="hint" id="expiration-help">Your local time. Leave blank to keep it forever.</p></div>
+          </div>
+          <button class="primary" id="create-button" type="submit">Create short link <span aria-hidden="true">↗</span></button>
+          <p id="create-message" class="message" role="status" aria-live="polite"></p>
+        </form>
+        <section id="created-result" class="result" hidden aria-labelledby="result-title">
+          <p class="eyebrow" id="result-title">YOUR LINK IS READY</p>
+          <div class="copy-row"><a id="created-link" target="_blank" rel="noopener noreferrer"></a><button type="button" id="copy-button" class="secondary">Copy</button></div>
+          <p class="hint">Opening this link redirects to its destination and counts a click.</p>
+          <button id="view-stats" type="button" class="text-button">View this link’s statistics →</button>
+        </section>
+      </section>
+      <section class="card stats-card" aria-labelledby="stats-title">
+        <div class="card-heading"><span class="step">02</span><div><h2 id="stats-title">A little insight</h2><p>Look up the activity behind a link.</p></div></div>
+        <form id="stats-form">
+          <label for="stats-code">Short code or alias</label>
+          <div class="lookup-row"><input id="stats-code" name="code" placeholder="e.g. my-next-big-idea" required maxlength="32" pattern="[A-Za-z0-9_-]{3,32}" autocomplete="off"><button class="secondary" id="stats-button" type="submit">Look up</button></div>
+          <p id="stats-message" class="message" role="status" aria-live="polite"></p>
+        </form>
+        <div id="stats-empty" class="empty-state"><span class="chart-icon" aria-hidden="true">▂ ▅ ▃ ▇</span><h3>Every click tells a little story.</h3><p>Enter a code to see its total clicks,<br>destination, and expiration.</p></div>
+        <div id="stats-result" hidden>
+          <div class="metric"><div><span class="eyebrow">TOTAL CLICKS</span><strong id="clicks">0</strong></div><span id="link-status" class="badge"></span></div>
+          <dl><dt>Destination</dt><dd id="stats-destination"></dd><dt>Created</dt><dd id="stats-created"></dd><dt>Expires</dt><dd id="stats-expiration"></dd></dl>
+          <p class="hint">Counts successful GET redirects, including repeat visits. Lookups don’t add clicks. Look up again to refresh.</p>
+        </div>
+      </section>
+    </div>
+    <div class="footnotes"><p><span aria-hidden="true">◈</span> Your links stay in this service’s local database.</p><p>No visitor IPs. No user agents. Just click counts.</p></div>
+    <footer><span>Built for the small things that connect us.</span><span>Localhost links work on this machine only.</span></footer>
+    <noscript><p class="message error">JavaScript is required for this UI. The HTTP API is also available.</p></noscript>
+  </main>
+</body>
+</html>
